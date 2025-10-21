@@ -1,0 +1,150 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+input[type="text"], input[type="number"] {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.initiative-input {
+  width: 60px !important;
+  text-align: center;
+}
+.damage-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.damage-input {
+  width: 70px !important;
+}
+#tableBody tr:nth-child(even) {
+  background-color: #e9e8e8;
+}
+
+/* === Приоритет состояний: deceased > dead > initiative-20 === */
+
+/* Жёлтая подсветка для инициативы 20 (базовая) */
+tr.initiative-20 {
+  background-color: #fff9c4 !important;
+  border: 1px solid #ffd54f;
+}
+tr.initiative-20 input {
+  font-weight: bold;
+  color: #5d4037;
+}
+
+/* Красный — повержен (приоритет выше жёлтого) */
+tr.dead {
+  background-color: #ffe6e6 !important;
+}
+tr.dead input {
+  color: #c0392b !important;
+  font-weight: bold;
+}
+
+/* Чёрный — окончательно мёртв (самый высокий приоритет) */
+tr.deceased {
+  background-color: #414040 !important;
+  color: rgb(0, 0, 0) !important;
+}
+tr.deceased input {
+  color: rgb(2, 2, 2) !important;
+  font-weight: bold;
+}
+
+/* Явное перекрытие: если мёртв + инициатива 20 → всё равно красный/чёрный */
+tr.dead.initiative-20 {
+  background-color: #ffe6e6 !important;
+}
+tr.deceased.initiative-20 {
+  background-color: #414040 !important;
+  color: rgb(0, 0, 0) !important;
+}
+tr.deceased.initiative-20 input {
+  color: rgb(2, 2, 2) !important;
+}
+
+/* === Остальные стили === */
+.apply-damage-btn {
+  width: 32px;
+  height: 32px;
+  font-weight: bold;
+  background-color: #ac4135;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apply-damage-btn:hover {
+  background-color: #a0362a;
+}
+button.add-row {
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.suggestions {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  z-index: 100;
+  max-height: 150px;
+  overflow-y: auto;
+  width: calc(100% - 2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+.suggestions div {
+  padding: 6px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.suggestions div:hover {
+  background-color: #e9e9e9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.reset-btn {
+  padding: 6px 12px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.reset-btn:hover {
+  background-color: #5a6268;
+}
+
+.hp-display {
+  font-family: monospace;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+}
