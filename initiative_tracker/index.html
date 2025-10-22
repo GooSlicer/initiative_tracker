@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Трекер инициативы</title>
-  <link rel="icon" href="images/Twenty_sided_dice.svg">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Трекер инициативы</title>
+    <link rel="icon" href="images/Twenty_sided_dice.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Трекер инициативы</h1>
+      <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
+    </div>
 
-  <div class="header">
-    <h1>Трекер инициативы</h1>
-    <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
-  </div>
+    <button class="add-row" onclick="addRow()">+</button>
 
-  <button class="add-row" onclick="addRow()">+</button>
+    <table id="initiativeTable">
+      <thead>
+        <tr>
+          <th>D20</th>
+          <th>Персонаж</th>
+          <th>HP</th>
+          <th>Получить урон</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
 
-  <table id="initiativeTable">
-    <thead>
-      <tr>
-        <th>D20</th>
-        <th>Персонаж</th>
-        <th>HP</th>
-        <th>Получить урон</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody">
-    </tbody>
-  </table>
-
-  <!-- Подключаем справочник имён -->
-  <script src="names.js"></script>
-  
-  <!-- Подключаем модули как ES-модули -->
-  <script type="module" src="js/main.js"></script>
-  <script type="module">
-    // Экспортируем функции в глобальную область для onclick
-    import { addRow, resetAll } from './js/table.js';
-    window.addRow = addRow;
-    window.resetAll = resetAll;
-  </script>
-</body>
+    <script src="names.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module">
+      import { addRow, resetAll } from "./js/table.js";
+      window.addRow = addRow;
+      window.resetAll = resetAll;
+    </script>
+  </body>
 </html>

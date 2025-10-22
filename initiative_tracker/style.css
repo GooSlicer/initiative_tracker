@@ -8,12 +8,14 @@ table {
   border-collapse: collapse;
   margin-top: 20px;
 }
-th, td {
+th,
+td {
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc;
 }
-input[type="text"], input[type="number"] {
+input[type="text"],
+input[type="number"] {
   width: 100%;
   padding: 6px;
   box-sizing: border-box;
@@ -34,10 +36,6 @@ input[type="text"], input[type="number"] {
 #tableBody tr:nth-child(even) {
   background-color: #e9e8e8;
 }
-
-/* === Приоритет состояний: deceased > dead > initiative-20 === */
-
-/* Жёлтая подсветка для инициативы 20 (базовая) */
 tr.initiative-20 {
   background-color: #fff9c4 !important;
   border: 1px solid #ffd54f;
@@ -46,8 +44,6 @@ tr.initiative-20 input {
   font-weight: bold;
   color: #5d4037;
 }
-
-/* Красный — повержен (приоритет выше жёлтого) */
 tr.dead {
   background-color: #ffe6e6 !important;
 }
@@ -55,8 +51,6 @@ tr.dead input {
   color: #c0392b !important;
   font-weight: bold;
 }
-
-/* Чёрный — окончательно мёртв (самый высокий приоритет) */
 tr.deceased {
   background-color: #414040 !important;
   color: rgb(0, 0, 0) !important;
@@ -65,8 +59,6 @@ tr.deceased input {
   color: rgb(2, 2, 2) !important;
   font-weight: bold;
 }
-
-/* Явное перекрытие: если мёртв + инициатива 20 → всё равно красный/чёрный */
 tr.dead.initiative-20 {
   background-color: #ffe6e6 !important;
 }
@@ -77,8 +69,6 @@ tr.deceased.initiative-20 {
 tr.deceased.initiative-20 input {
   color: rgb(2, 2, 2) !important;
 }
-
-/* === Остальные стили === */
 .apply-damage-btn {
   width: 32px;
   height: 32px;
@@ -101,7 +91,6 @@ button.add-row {
   cursor: pointer;
   margin-top: 20px;
 }
-
 .suggestions {
   position: absolute;
   background: white;
@@ -111,7 +100,7 @@ button.add-row {
   max-height: 150px;
   overflow-y: auto;
   width: calc(100% - 2px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
 }
 .suggestions div {
@@ -122,7 +111,6 @@ button.add-row {
 .suggestions div:hover {
   background-color: #e9e9e9;
 }
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -141,7 +129,6 @@ button.add-row {
 .reset-btn:hover {
   background-color: #5a6268;
 }
-
 .hp-display {
   font-family: monospace;
   border: 1px solid #ccc;
