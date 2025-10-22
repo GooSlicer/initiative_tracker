@@ -1,5 +1,3 @@
-// js/main.js
-
 import { loadFromStorage } from "./storage.js";
 import { addRow, addRowWithData } from "./table.js";
 

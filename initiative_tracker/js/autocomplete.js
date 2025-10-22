@@ -1,5 +1,3 @@
-// js/autocomplete.js
-
 export function showSuggestions(input, suggestionsDiv) {
   if (typeof CHARACTER_NAMES === 'undefined' || !Array.isArray(CHARACTER_NAMES)) {
     console.error('❌ CHARACTER_NAMES не загружен!');
