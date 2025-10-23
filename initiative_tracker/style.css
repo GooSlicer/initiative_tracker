@@ -4,9 +4,10 @@ body {
   background-color: #f4f4f4;
 }
 table {
-  width: 100%;
+  width: 65%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin: auto;
 }
 th,
 td {
@@ -16,22 +17,23 @@ td {
 }
 input[type="text"],
 input[type="number"] {
-  width: 100%;
+  width: 45%;
   padding: 6px;
-  box-sizing: border-box;
+  box-sizing: border-box; 
+  text-align: center; 
 }
 .initiative-input {
-  width: 60px !important;
+  width: 50px !important;
   text-align: center;
 }
 .damage-cell {
-  display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   gap: 6px;
 }
 .damage-input {
-  width: 70px !important;
+  width: 50px !important;
 }
 #tableBody tr:nth-child(even) {
   background-color: #e9e8e8;
@@ -78,7 +80,7 @@ tr.deceased.initiative-20 input {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  display: flex;
+  margin-left: 2px;
   align-items: center;
   justify-content: center;
 }
@@ -134,4 +136,13 @@ button.add-row {
   border: 1px solid #ccc;
   border-radius: 4px;
   background: white;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  width: 60px !important;
+  text-align: right;
 }
