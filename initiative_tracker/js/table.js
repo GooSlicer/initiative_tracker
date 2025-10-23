@@ -119,9 +119,8 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   // Подсказка максимального HP
   const maxHpLabel = document.createElement("span");
   maxHpLabel.style.position = "absolute";
-  maxHpLabel.style.right = "67px";
-  maxHpLabel.style.top = "49%";
-  maxHpLabel.style.transform = "translateY(-50%)";
+  maxHpLabel.style.left = "93px";
+  maxHpLabel.style.top = "18px";
   maxHpLabel.style.color = "#888";
   maxHpLabel.style.fontSize = "0.85em";
   maxHpLabel.style.pointerEvents = "none";
