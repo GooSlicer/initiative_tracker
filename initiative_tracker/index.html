@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Трекер инициативы</title>
-    <link rel="icon" href="images/Twenty_sided_dice.svg" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Трекер инициативы</h1>
-    <div class="header">
-      
-      <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
-    </div>
 
-    <button class="add-row" onclick="addRow()">+</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Трекер инициативы</title>
+  <link rel="icon" href="images/Twenty_sided_dice.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  
+  <div class="wrapper">
+    <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="https://gooslicer.ru" class="home-btn">🏠 Главная</a>
+        <h1>⚔️ Трекер инициативы</h1>
+      </div>
+    </div>
+  </header>
+  <div class="header">
+
+    <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
+  </div>
+    <button class="add-row" onclick="addRow()">Добавить</button>
 
     <table id="initiativeTable">
       <thead>
@@ -27,13 +37,21 @@
       </thead>
       <tbody id="tableBody"></tbody>
     </table>
+    <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 D&D Трекер инициативы</p>
+    </div>
+  </footer>
+  </div>
 
-    <script src="names.js"></script>
-    <script type="module" src="js/main.js"></script>
-    <script type="module">
-      import { addRow, resetAll } from "./js/table.js";
-      window.addRow = addRow;
-      window.resetAll = resetAll;
-    </script>
-  </body>
+  
+  <script src="names.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script type="module">
+    import { addRow, resetAll } from "./js/table.js";
+    window.addRow = addRow;
+    window.resetAll = resetAll;
+  </script>
+</body>
+
 </html>

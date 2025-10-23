@@ -1,11 +1,10 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
   background-color: #f4f4f4;
+  margin: 0px;
 }
 table {
   width: 65%;
-  margin-top: 20px;
   margin: auto;
   border-spacing: 0.9px 5px;
 }
@@ -89,10 +88,12 @@ tr.deceased.initiative-20 input {
   background-color: #a0362a;
 }
 button.add-row {
-  padding: 10px 15px;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   margin-top: 20px;
+  width: 112px;
+  height: 25px;
+  text-align: center;
 }
 .suggestions {
   position: absolute;
@@ -146,4 +147,63 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   width: 60px !important;
   text-align: right;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site-header {
+  background: #2c261e;
+  padding: 12px 0;
+  border-bottom: 2px solid #ffcc00;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.home-btn {
+  background: #5d4037;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 0.9em;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.home-btn:hover {
+  background: #795548;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.8em;
+  color: #ffcc00;
+  letter-spacing: 1px;
+  font-weight: normal;
+}
+
+.site-footer {
+  background: #1a1713;
+  padding: 15px 0;
+  border-top: 1px solid #5d4037;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9em;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+#initiativeTable {
+  margin-top: 15px;
 }
