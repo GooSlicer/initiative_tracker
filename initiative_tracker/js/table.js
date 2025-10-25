@@ -112,17 +112,18 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   // HP
   const hpCell = document.createElement("td");
   hpCell.style.position = "relative";
+  hpCell.style.alignSelf = "center";
 
   const hpInput = document.createElement("input");
   hpInput.type = "number";
   hpInput.value = hp;
-  hpInput.style.paddingRight = "20px";
 
   // Подсказка максимального HP
   const maxHpLabel = document.createElement("span");
   maxHpLabel.style.position = "relative";
+  maxHpLabel.style.height = "0px";
   maxHpLabel.style.left = "45px";
-  maxHpLabel.style.top = "21px";
+  maxHpLabel.style.top = "6px";
   maxHpLabel.style.color = "#888";
   maxHpLabel.style.fontSize = "0.85em";
   maxHpLabel.style.pointerEvents = "none";
