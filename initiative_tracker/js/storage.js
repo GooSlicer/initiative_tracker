@@ -1,5 +1,5 @@
 const STORAGE_KEY = "initiativeTrackerData";
-
+// сохраняет в кеш браузера
 export function saveToStorage() {
   const rows = [];
   document.querySelectorAll("#tableBody tr").forEach((row) => {
@@ -15,6 +15,7 @@ export function saveToStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
 }
 
+// функция загрузки
 export function loadFromStorage() {
   const saved = localStorage.getItem(STORAGE_KEY);
   return JSON.parse(saved);

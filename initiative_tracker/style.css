@@ -220,3 +220,6 @@ input[type="number"] {
   justify-content: space-between;
   padding: 10px;
 }
+input.initiative-input {
+  text-align: center;
+}

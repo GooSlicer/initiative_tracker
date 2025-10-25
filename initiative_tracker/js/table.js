@@ -3,42 +3,44 @@ import { setupAutocomplete } from "./autocomplete.js";
 import { HERO_MAX_HP, HERO_EMOJIS } from "./heroMaxHP.js";
 
 export function updateRowStyle(row, hpInput, nameInput) {
-  const hpStr = hpInput.value.trim();
-  const name = nameInput.value.trim();
+  const hpStr = hpInput.value.trim(); //хп
+  const rawName = nameInput.value.trim(); //имя
 
-  row.classList.remove("dead", "deceased", "initiative-20");
+  row.classList.remove('dead', 'deceased', 'initiative-20');
 
-  const initInput = row.querySelector(".initiative-input");
-  const initValue = parseInt(initInput?.value) || 0;
+  const initInput = row.querySelector('.initiative-input');
+  const initValue = parseInt(initInput?.value);
+  // читая 20 на инициативу
   if (initValue === 20) {
-    row.classList.add("initiative-20");
+    row.classList.add('initiative-20');
   }
 
-  if (hpStr === "") {
-    return;
-  }
+  if (hpStr === '') return;
 
-  const hp = parseInt(hpStr) || 0;
+  const hp = parseInt(hpStr);
 
-  const isHero = HERO_MAX_HP.hasOwnProperty(name);
-  const maxHP = isHero ? HERO_MAX_HP[name] : null;
+  const clean = cleanName(rawName);
+  const isHero = HERO_MAX_HP.hasOwnProperty(clean);
+  const maxHP = isHero ? HERO_MAX_HP[clean] : null;
 
-  if (hp > 0) {
-    return;
-  }
+  if (hp > 0) return;
 
   if (!isHero) {
-    row.classList.add("dead");
+    row.classList.add('dead');
     return;
   }
 
   if (hp <= -maxHP) {
-    row.classList.add("deceased");
+    row.classList.add('deceased');
   } else {
-    row.classList.add("dead");
+    row.classList.add('dead');
   }
 }
 
+export function cleanName(name) {
+  return name.replace(/^[^\wа-яА-Я]+/, '').trim();
+}
+// сортировка таблицы по инициативе
 export function sortTable() {
   const tableBody = document.getElementById("tableBody");
   const rows = Array.from(tableBody.querySelectorAll("tr"));
@@ -55,7 +57,7 @@ export function sortTable() {
     const aDead = aHp <= 0;
     const bDead = bHp <= 0;
 
-    if (aDead === bDead) return bInit - aInit;
+    if (aDead === bDead) return bInit - aInit; //если мертвый то вниз списка
     return aDead ? 1 : -1;
   });
 
@@ -67,7 +69,7 @@ export function sortTable() {
 
   saveToStorage();
 }
-
+//заполняет таблицу пустой строкой
 export function addRowWithData(initiative = "", name = "", hp = "") {
   const tableBody = document.getElementById("tableBody");
   const row = document.createElement("tr");
@@ -76,6 +78,7 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   const initCell = document.createElement("td");
   const initInput = document.createElement("input");
   initInput.type = "number";
+  initInput.placeholder = "d20";
   initInput.className = "initiative-input";
   initInput.min = "-30";
   initInput.max = "99";
@@ -117,18 +120,19 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
 
   // Подсказка максимального HP
   const maxHpLabel = document.createElement("span");
-  maxHpLabel.style.position = "absolute";
-  maxHpLabel.style.left = "93px";
-  maxHpLabel.style.top = "18px";
+  maxHpLabel.style.position = "relative";
+  maxHpLabel.style.left = "45px";
+  maxHpLabel.style.top = "21px";
   maxHpLabel.style.color = "#888";
   maxHpLabel.style.fontSize = "0.85em";
   maxHpLabel.style.pointerEvents = "none";
 
   function updateMaxHpLabel() {
     const name = nameInput.value.trim();
-    const isHero = HERO_MAX_HP.hasOwnProperty(name);
+    const clean = cleanName(name);
+    const isHero = HERO_MAX_HP.hasOwnProperty(clean);
     if (isHero) {
-      maxHpLabel.textContent = "/" + HERO_MAX_HP[name];
+      maxHpLabel.textContent = "/" + HERO_MAX_HP[clean];
       maxHpLabel.style.display = "block";
     } else {
       maxHpLabel.style.display = "none";
@@ -194,11 +198,11 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
 });
 }
 
-export function addRow() {
+export function addRow() { //кнопка +
   addRowWithData("", "", "");
 }
 
-export function resetAll() {
+export function resetAll() { //кнопка сбросить
   if (confirm("Сбросить всю таблицу? Все данные будут удалены.")) {
     localStorage.removeItem("initiativeTrackerData");
     document.getElementById("tableBody").innerHTML = "";
