@@ -7,25 +7,24 @@
   <title>Трекер инициативы</title>
   <link rel="icon" href="images/Twenty_sided_dice.svg" />
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  
+
   <div class="wrapper">
     <header class="site-header">
-    <div class="container">
-      <div class="header-content">
-        <a href="https://gooslicer.ru" class="home-btn">🏠</a>
-        <h1>⚔️ Трекер инициативы</h1>
+      <div class="container">
+        <div class="header-content">
+          <a href="https://gooslicer.ru" class="home-btn">🏠</a>
+          <h1>⚔️ Трекер инициативы</h1>
+        </div>
       </div>
+    </header>
+    <div class="buttons">
+      <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
+      <button class="add-row" onclick="addRow()">+</button>
     </div>
-  </header>
-  <div class="header">
-
-    <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
-  </div>
-    <button class="add-row" onclick="addRow()">Добавить</button>
-
     <table id="initiativeTable">
       <thead>
         <tr>
@@ -38,13 +37,13 @@
       <tbody id="tableBody"></tbody>
     </table>
     <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 D&D Трекер инициативы // GooSlicer // Дмитрий Гуськов</p>
-    </div>
-  </footer>
+      <div class="container">
+        <p>© 2025 D&D Трекер инициативы // GooSlicer // Дмитрий Гуськов</p>
+      </div>
+    </footer>
   </div>
 
-  
+
   <script src="names.js"></script>
   <script type="module" src="js/main.js"></script>
   <script type="module">
