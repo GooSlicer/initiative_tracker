@@ -1,7 +1,6 @@
 import { saveToStorage } from "./storage.js";
 import { setupAutocomplete } from "./autocomplete.js";
-
-import { HERO_MAX_HP } from "./heroMaxHP.js";
+import { HERO_MAX_HP, HERO_EMOJIS } from "./heroMaxHP.js";
 
 export function updateRowStyle(row, hpInput, nameInput) {
   const hpStr = hpInput.value.trim();
@@ -185,6 +184,14 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
 
   tableBody.appendChild(row);
   updateRowStyle(row, hpInput, nameInput);
+  nameInput.addEventListener('blur', () => {
+  const value = nameInput.value.trim();
+  const cleanName = value.replace(/^[^\wа-яА-Я]+/, '').trim();
+  if (HERO_EMOJIS[cleanName]) {
+    nameInput.value = `${HERO_EMOJIS[cleanName]} ${cleanName}`;
+  }
+  saveToStorage();
+});
 }
 
 export function addRow() {

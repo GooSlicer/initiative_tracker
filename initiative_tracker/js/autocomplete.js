@@ -1,13 +1,14 @@
-export function showSuggestions(input, suggestionsDiv) {
-  if (typeof CHARACTER_NAMES === 'undefined' || !Array.isArray(CHARACTER_NAMES)) {
-    console.error('❌ CHARACTER_NAMES не загружен!');
-    return;
-  }
+import { HERO_EMOJIS } from "./heroMaxHP.js";
+import { saveToStorage } from "./storage.js";
 
+function showSuggestions(input, suggestionsDiv) {
   const usedNames = new Set();
   document.querySelectorAll('#tableBody input[type="text"]').forEach(inp => {
     const val = inp.value.trim();
-    if (val) usedNames.add(val);
+    if (val) {
+      const cleanName = val.replace(/^[^\wа-яА-Я]+/, '').trim();
+      usedNames.add(cleanName);
+    }
   });
 
   const value = input.value.toLowerCase();
@@ -23,12 +24,14 @@ export function showSuggestions(input, suggestionsDiv) {
   }
 
   filtered.forEach(name => {
+    const emoji = HERO_EMOJIS[name] || '';
     const item = document.createElement('div');
-    item.textContent = name;
+    item.textContent = `${emoji} ${name}`;
     item.onclick = () => {
-      input.value = name;
+      input.value = `${emoji} ${name}`;
       suggestionsDiv.style.display = 'none';
       input.focus();
+      saveToStorage();
     };
     suggestionsDiv.appendChild(item);
   });
