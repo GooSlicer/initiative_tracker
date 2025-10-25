@@ -175,9 +175,9 @@ input[type="number"] {
 .home-btn {
   background: #5d4037;
   color: white;
-  padding: 8px 16px;
+  padding: 8px 8px;
   text-decoration: none;
-  font-size: 0.9em;
+  font-size: 20px;
   border-radius: 4px;
   transition: background 0.2s;
 }
