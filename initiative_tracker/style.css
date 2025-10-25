@@ -223,3 +223,6 @@ input[type="number"] {
 input.initiative-input {
   text-align: center;
 }
+input::placeholder {
+  color: #bebebe;
+}
