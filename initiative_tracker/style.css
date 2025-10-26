@@ -125,7 +125,7 @@ h1 {
 }
 .reset-btn {
   margin-top: 20px;
-  margin-right: 20px;
+  margin-right: 5px;
   top: 85px;
   padding: 6px 6px;
   background-color: #6c757d;
@@ -212,7 +212,7 @@ input[type="number"] {
   justify-content:space-between;
 }
 #initiativeTable {
-  margin-top: -55px;
+  margin-top: -80px;
 }
 .buttons {
   display: flex;
@@ -248,4 +248,20 @@ input::placeholder {
 }
 .delete-btn:hover {
   background-color: #a0362a;
+}
+.add-heroes {
+  position: absolute;
+  top: 180px;
+  left: 20px;
+  width: 100px;
+  padding: 6px 6px;
+  background-color: #8a939b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.add-heroes:hover {
+  background-color: #5a6268;
 }
