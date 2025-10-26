@@ -213,15 +213,24 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
 export function addRow() { //кнопка +
   addRowWithData("", "", "");
 }
-export function fillHeroes() { //кнопка заполнить персонажей
-  const heroNames = Object.keys(HERO_EMOJIS);
-  const heroEmojis = Object.values(HERO_EMOJIS);
-  for (let index = 0; index < heroNames.length; index++) {
-    const names = heroNames[index];
-    const emojis = heroEmojis[index]
-    addRowWithData("", emojis + names, "")
+
+// кнопка добавить персонажей
+export function fillHeroes() {
+  const existingNames = new Set();
+  document.querySelectorAll('#tableBody input[type="text"]').forEach(input => {
+    const rawName = input.value.trim();
+    if (rawName) {
+      const clean = cleanName(rawName);
+      existingNames.add(clean);
+    }
+  });
+  for (const [name, emoji] of Object.entries(HERO_EMOJIS)) {
+    if (!existingNames.has(name)) {
+      addRowWithData("", `${emoji} ${name}`, "");
+    }
   }
   saveToStorage();
+  sortTable();
 }
 
 export function resetAll() { //кнопка сбросить
