@@ -22,8 +22,8 @@
       </div>
     </header>
     <div class="upper-buttons">
-      <button class="add-heroes" onclick="">Заполнить персонажей</button>
-      <button class="add-buffs" onclick="">Добавить бафф</button>
+      <button class="add-heroes" onclick="fillHeroes()">Добавить персонажей</button>
+      <button class="add-buffs" onclick="addBuffs()">Добавить бафф</button>
     </div>
     <div class="buttons">
       <button class="reset-btn" onclick="resetAll()">Сбросить всё</button>
@@ -51,9 +51,10 @@
   <script src="names.js"></script>
   <script type="module" src="js/main.js"></script>
   <script type="module">
-    import { addRow, resetAll } from "./js/table.js";
+    import { addRow, resetAll, fillHeroes } from "./js/table.js";
     window.addRow = addRow;
     window.resetAll = resetAll;
+    window.fillHeroes = fillHeroes;
   </script>
 </body>
 

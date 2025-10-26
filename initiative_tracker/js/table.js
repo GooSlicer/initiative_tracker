@@ -202,6 +202,16 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
 export function addRow() { //кнопка +
   addRowWithData("", "", "");
 }
+export function fillHeroes() { //кнопка заполнить персонажей
+  const heroNames = Object.keys(HERO_EMOJIS);
+  const heroEmojis = Object.values(HERO_EMOJIS);
+  for (let index = 0; index < heroNames.length; index++) {
+    const names = heroNames[index];
+    const emojis = heroEmojis[index]
+    addRowWithData("", emojis + names, "")
+  }
+  saveToStorage();
+}
 
 export function resetAll() { //кнопка сбросить
   if (confirm("Сбросить всю таблицу? Все данные будут удалены.")) {
