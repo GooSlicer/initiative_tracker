@@ -154,6 +154,15 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   hpCell.appendChild(hpInput);
   hpCell.appendChild(maxHpLabel);
 
+  // Кнопка удалить
+  const deleteCell = document.createElement("td");
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "delete-btn";
+  deleteBtn.textContent = "Удалить";
+  deleteBtn.onclick = function () {
+    row.remove();
+  };
+
   // Урон
   const damageCell = document.createElement("td");
   damageCell.className = "damage-cell";
@@ -181,11 +190,13 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   hpCell.appendChild(hpInput);
   damageCell.appendChild(damageInput);
   damageCell.appendChild(applyBtn);
+  deleteCell.appendChild(deleteBtn);  
 
   row.appendChild(initCell);
   row.appendChild(nameCell);
   row.appendChild(hpCell);
   row.appendChild(damageCell);
+  row.appendChild(deleteCell);
 
   tableBody.appendChild(row);
   updateRowStyle(row, hpInput, nameInput);
