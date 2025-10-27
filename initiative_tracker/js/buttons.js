@@ -1,7 +1,7 @@
 import { addRowWithData } from "./table.js";
 import { saveToStorage } from "./storage.js";
 import { sortTable } from "./sortTable.js";
-import { HERO_EMOJIS, cleanName } from "./heroMaxHP.js";
+import { HERO_EMOJIS, cleanName } from "./heroData.js";
 
 export function addRow() { //кнопка +
   addRowWithData("", "", "");

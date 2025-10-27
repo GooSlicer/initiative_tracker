@@ -1,6 +1,6 @@
 import { saveToStorage } from "./storage.js";
 import { setupAutocomplete } from "./autocomplete.js";
-import { HERO_MAX_HP, HERO_EMOJIS, cleanName } from "./heroMaxHP.js";
+import { HERO_MAX_HP, HERO_EMOJIS, cleanName } from "./heroData.js";
 import { updateRowStyle } from "./updateRowStyle.js";
 import { sortTable } from "./sortTable.js";
 

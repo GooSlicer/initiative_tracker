@@ -1,4 +1,4 @@
-import { cleanName, HERO_MAX_HP } from "./heroMaxHP.js";
+import { cleanName, HERO_MAX_HP } from "./heroData.js";
 
 export function updateRowStyle(row, hpInput, nameInput) {
   const hpStr = hpInput.value.trim();

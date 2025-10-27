@@ -1,4 +1,4 @@
-import { HERO_EMOJIS } from "./heroMaxHP.js";
+import { HERO_EMOJIS } from "./heroData.js";
 import { saveToStorage } from "./storage.js";
 
 function showSuggestions(input, suggestionsDiv) {
