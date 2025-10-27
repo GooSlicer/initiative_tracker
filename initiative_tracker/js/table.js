@@ -3,21 +3,26 @@ import { setupAutocomplete } from "./autocomplete.js";
 import { HERO_MAX_HP, HERO_EMOJIS } from "./heroMaxHP.js";
 
 export function updateRowStyle(row, hpInput, nameInput) {
-  const hpStr = hpInput.value.trim(); //хп
-  const rawName = nameInput.value.trim(); //имя
-
-  row.classList.remove('dead', 'deceased', 'initiative-20');
+  const hpStr = hpInput.value.trim();
+  const rawName = nameInput.value.trim();
+  row.classList.remove('dead', 'deceased', 'initiative-20', 'initiative-crit-fail');
 
   const initInput = row.querySelector('.initiative-input');
-  const initValue = parseInt(initInput?.value);
-  // читая 20 на инициативу
-  if (initValue === 20) {
+  const initValueRaw = initInput?.value.trim();
+
+  row.classList.remove('initiative-20', 'initiative-crit-fail');
+
+  if (initValueRaw === '!20') {
     row.classList.add('initiative-20');
+  }
+  else if (initValueRaw === '!1') {
+    row.classList.add('initiative-crit-fail');
   }
 
   if (hpStr === '') return;
 
   const hp = parseInt(hpStr);
+  if (isNaN(hp)) return;
 
   const clean = cleanName(rawName);
   const isHero = HERO_MAX_HP.hasOwnProperty(clean);
@@ -41,29 +46,38 @@ export function cleanName(name) {
   return name.replace(/^[^\wа-яА-Я]+/, '').trim();
 }
 // сортировка таблицы по инициативе
-export function sortTable() {
-  const tableBody = document.getElementById("tableBody");
-  const rows = Array.from(tableBody.querySelectorAll("tr"));
+function sortTable() {
+  const tableBody = document.getElementById('tableBody');
+  const rows = Array.from(tableBody.querySelectorAll('tr'));
   const activeElement = document.activeElement;
 
   rows.sort((a, b) => {
-    const aInit = parseInt(a.querySelector(".initiative-input").value) || -1;
-    const bInit = parseInt(b.querySelector(".initiative-input").value) || -1;
-    const aHp =
-      parseInt(a.querySelectorAll('input[type="number"]')[1]?.value) || 0;
-    const bHp =
-      parseInt(b.querySelectorAll('input[type="number"]')[1]?.value) || 0;
+    const aInitRaw = a.querySelector('.initiative-input').value.trim();
+    const bInitRaw = b.querySelector('.initiative-input').value.trim();
+
+    const parseInit = (raw) => {
+      if (raw === '!20') return 20;
+      if (raw === '!1') return 1;
+      const num = parseInt(raw);
+      return isNaN(num) ? -1 : num;
+    };
+
+    const aVal = parseInit(aInitRaw);
+    const bVal = parseInit(bInitRaw);
+
+    const aHp = parseInt(a.querySelectorAll('input[type="number"]')[1]?.value) || 0;
+    const bHp = parseInt(b.querySelectorAll('input[type="number"]')[1]?.value) || 0;
 
     const aDead = aHp <= 0;
     const bDead = bHp <= 0;
 
-    if (aDead === bDead) return bInit - aInit; //если мертвый то вниз списка
+    if (aDead === bDead) return bVal - aVal;
     return aDead ? 1 : -1;
   });
 
-  rows.forEach((row) => tableBody.appendChild(row));
+  rows.forEach(row => tableBody.appendChild(row));
 
-  if (activeElement && activeElement.tagName === "INPUT") {
+  if (activeElement && activeElement.tagName === 'INPUT') {
     activeElement.focus();
   }
 
@@ -76,18 +90,30 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
 
   // D20
   const initCell = document.createElement("td");
-  const initInput = document.createElement("input");
-  initInput.type = "number";
+  const initInput = document.createElement('input');
+  initInput.type = 'text';
   initInput.placeholder = "d20";
   initInput.className = "initiative-input";
   initInput.min = "-30";
   initInput.max = "99";
   initInput.value = initiative;
-  initInput.addEventListener("input", function () {
-    let val = parseInt(this.value);
-    if (isNaN(val)) return;
-    if (val < -30) this.value = -30;
-    if (val > 99) this.value = 99;
+  initInput.addEventListener('input', function () {
+    let value = this.value;
+
+    if (value === '!20' || value === '!1') {
+    } else if (value === '') {
+    } else {
+      value = value.replace(/[^0-9\-]/g, '');
+      const num = parseInt(value);
+      if (!isNaN(num)) {
+        if (num < -30) value = '-30';
+        if (num > 99) value = '99';
+      } else {
+        value = '';
+      }
+    }
+
+    this.value = value;
     updateRowStyle(row, hpInput, nameInput);
     sortTable();
   });
@@ -190,7 +216,7 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   hpCell.appendChild(hpInput);
   damageCell.appendChild(damageInput);
   damageCell.appendChild(applyBtn);
-  deleteCell.appendChild(deleteBtn);  
+  deleteCell.appendChild(deleteBtn);
 
   row.appendChild(initCell);
   row.appendChild(nameCell);
@@ -201,13 +227,13 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   tableBody.appendChild(row);
   updateRowStyle(row, hpInput, nameInput);
   nameInput.addEventListener('blur', () => {
-  const value = nameInput.value.trim();
-  const cleanName = value.replace(/^[^\wа-яА-Я]+/, '').trim();
-  if (HERO_EMOJIS[cleanName]) {
-    nameInput.value = `${HERO_EMOJIS[cleanName]} ${cleanName}`;
-  }
-  saveToStorage();
-});
+    const value = nameInput.value.trim();
+    const cleanName = value.replace(/^[^\wа-яА-Я]+/, '').trim();
+    if (HERO_EMOJIS[cleanName]) {
+      nameInput.value = `${HERO_EMOJIS[cleanName]} ${cleanName}`;
+    }
+    saveToStorage();
+  });
 }
 
 export function addRow() { //кнопка +

@@ -265,3 +265,12 @@ input::placeholder {
 .add-heroes:hover {
   background-color: #5a6268;
 }
+tr.initiative-crit-fail {
+  background-color: #d7ccc8 !important;
+  border: 1px solid #8d6e63 !important;
+}
+
+tr.initiative-crit-fail input {
+  color: #5d4037 !important;
+  font-weight: bold;
+}
