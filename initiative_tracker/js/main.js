@@ -1,5 +1,6 @@
 import { loadFromStorage } from "./storage.js";
-import { addRow, addRowWithData } from "./table.js";
+import { addRow } from "./buttons.js";
+import { addRowWithData } from "./table.js";
 
 // при загрузке контента вытаскивает данные из кеша
 document.addEventListener("DOMContentLoaded", () => {

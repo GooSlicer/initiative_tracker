@@ -1,93 +1,12 @@
 import { saveToStorage } from "./storage.js";
 import { setupAutocomplete } from "./autocomplete.js";
-import { HERO_MAX_HP, HERO_EMOJIS } from "./heroMaxHP.js";
+import { HERO_MAX_HP, HERO_EMOJIS, cleanName } from "./heroMaxHP.js";
+import { updateRowStyle } from "./updateRowStyle.js";
+import { sortTable } from "./sortTable.js";
 
-export function updateRowStyle(row, hpInput, nameInput) {
-  const hpStr = hpInput.value.trim();
-  const rawName = nameInput.value.trim();
-  row.classList.remove('dead', 'deceased', 'initiative-20', 'initiative-crit-fail');
-
-  const initInput = row.querySelector('.initiative-input');
-  const initValueRaw = initInput?.value.trim();
-
-  row.classList.remove('initiative-20', 'initiative-crit-fail');
-
-  if (initValueRaw === '!20') {
-    row.classList.add('initiative-20');
-  }
-  else if (initValueRaw === '!1') {
-    row.classList.add('initiative-crit-fail');
-  }
-
-  if (hpStr === '') return;
-
-  const hp = parseInt(hpStr);
-  if (isNaN(hp)) return;
-
-  const clean = cleanName(rawName);
-  const isHero = HERO_MAX_HP.hasOwnProperty(clean);
-  const maxHP = isHero ? HERO_MAX_HP[clean] : null;
-
-  if (hp > 0) return;
-
-  if (!isHero) {
-    row.classList.add('dead');
-    return;
-  }
-
-  if (hp <= -maxHP) {
-    row.classList.add('deceased');
-  } else {
-    row.classList.add('dead');
-  }
-}
-
-export function cleanName(name) {
-  return name.replace(/^[^\wа-яА-Я]+/, '').trim();
-}
-// сортировка таблицы по инициативе
-function sortTable() {
-  const tableBody = document.getElementById('tableBody');
-  const rows = Array.from(tableBody.querySelectorAll('tr'));
-  const activeElement = document.activeElement;
-
-  rows.sort((a, b) => {
-    const aInitRaw = a.querySelector('.initiative-input').value.trim();
-    const bInitRaw = b.querySelector('.initiative-input').value.trim();
-
-    const parseInit = (raw) => {
-      if (raw === '!20') return 20;
-      if (raw === '!1') return 1;
-      const num = parseInt(raw);
-      return isNaN(num) ? -1 : num;
-    };
-
-    const aVal = parseInit(aInitRaw);
-    const bVal = parseInit(bInitRaw);
-
-    const aHp = parseInt(a.querySelectorAll('input[type="number"]')[1]?.value) || 0;
-    const bHp = parseInt(b.querySelectorAll('input[type="number"]')[1]?.value) || 0;
-
-    const aDead = aHp <= 0;
-    const bDead = bHp <= 0;
-
-    if (aDead === bDead) return bVal - aVal;
-    return aDead ? 1 : -1;
-  });
-
-  rows.forEach(row => tableBody.appendChild(row));
-
-  if (activeElement && activeElement.tagName === 'INPUT') {
-    activeElement.focus();
-  }
-
-  saveToStorage();
-}
-//заполняет таблицу пустой строкой
 export function addRowWithData(initiative = "", name = "", hp = "") {
   const tableBody = document.getElementById("tableBody");
   const row = document.createElement("tr");
-
   // D20
   const initCell = document.createElement("td");
   const initInput = document.createElement('input');
@@ -234,35 +153,4 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
     }
     saveToStorage();
   });
-}
-
-export function addRow() { //кнопка +
-  addRowWithData("", "", "");
-}
-
-// кнопка добавить персонажей
-export function fillHeroes() {
-  const existingNames = new Set();
-  document.querySelectorAll('#tableBody input[type="text"]').forEach(input => {
-    const rawName = input.value.trim();
-    if (rawName) {
-      const clean = cleanName(rawName);
-      existingNames.add(clean);
-    }
-  });
-  for (const [name, emoji] of Object.entries(HERO_EMOJIS)) {
-    if (!existingNames.has(name)) {
-      addRowWithData("", `${emoji} ${name}`, "");
-    }
-  }
-  saveToStorage();
-  sortTable();
-}
-
-export function resetAll() { //кнопка сбросить
-  if (confirm("Сбросить всю таблицу? Все данные будут удалены.")) {
-    localStorage.removeItem("initiativeTrackerData");
-    document.getElementById("tableBody").innerHTML = "";
-    addRow();
-  }
 }

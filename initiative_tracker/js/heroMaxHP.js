@@ -13,3 +13,6 @@ export const HERO_EMOJIS = {
   "Мудрезистор": "🏹🌲",
   "Пушистый кошмар": "🌿🐾"
 };
+export function cleanName(name) {
+  return name.replace(/^[^\wа-яА-Я]+/, '').trim();
+}
