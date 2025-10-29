@@ -15,6 +15,12 @@ td {
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
+
+.name-input {
+  font-size: 18px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 input[type="text"],
 input[type="number"] {
   width: 100%;
@@ -283,4 +289,18 @@ tr.initiative-crit-fail input {
 
 tr.deleting {
   animation: slideOutLeft 0.3s ease forwards;
+}
+
+input.hit {
+  background-color: #ffebee !important;
+  color: #c62828 !important;
+  box-shadow: 0 0 8px rgba(244, 67, 54, 0.6) !important;
+  transition: none !important;
+}
+
+input.healed {
+  background-color: #eeffeb !important;
+  color: #2dc628 !important;
+  box-shadow: 0 0 8px rgba(82, 244, 54, 0.6) !important;
+  transition: none !important;
 }

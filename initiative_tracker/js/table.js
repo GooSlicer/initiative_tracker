@@ -43,6 +43,8 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   nameInput.type = "text";
   nameInput.placeholder = "Имя";
   nameInput.value = name;
+  nameInput.className = "name-input";
+
 
   const suggestionsDiv = document.createElement("div");
   suggestionsDiv.className = "suggestions";
@@ -126,14 +128,31 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   applyBtn.className = "apply-damage-btn";
   applyBtn.textContent = "–";
   applyBtn.onclick = function () {
-    const currentHP = parseInt(hpInput.value);
-    const damage = parseInt(damageInput.value);
-    hpInput.value = currentHP - damage;
-    damageInput.value = "";
-    updateRowStyle(row, hpInput, nameInput);
-    saveToStorage();
-    sortTable();
-  };
+  const hpStr = hpInput.value.trim();
+  const currentHP = hpStr === '' ? 0 : (parseInt(hpStr) || 0);
+  
+  const damageStr = damageInput.value.trim();
+  const damage = damageStr === '' ? 0 : (parseInt(damageStr) || 0);
+  
+  hpInput.value = currentHP - damage;
+  damageInput.value = '';
+  if (damage < 0){
+    hpInput.classList.add('healed');
+    setTimeout(() => {
+    hpInput.classList.remove('healed');
+  }, 800);
+  }
+  if (damage > 0){
+    hpInput.classList.add('hit');
+    setTimeout(() => {
+    hpInput.classList.remove('hit');
+  }, 800);
+  }
+  
+  updateRowStyle(row, hpInput, nameInput);
+  saveToStorage();
+  sortTable();
+};
 
   // Сборка
   initCell.appendChild(initInput);
