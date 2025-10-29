@@ -274,3 +274,13 @@ tr.initiative-crit-fail input {
   color: #5d4037 !important;
   font-weight: bold;
 }
+@keyframes slideOutLeft {
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+tr.deleting {
+  animation: slideOutLeft 0.3s ease forwards;
+}

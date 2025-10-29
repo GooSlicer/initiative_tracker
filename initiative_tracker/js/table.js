@@ -104,8 +104,13 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   const deleteBtn = document.createElement("button");
   deleteBtn.className = "delete-btn";
   deleteBtn.textContent = "Удалить";
-  deleteBtn.onclick = function () {
+  deleteBtn.onclick = () => {
+  row.classList.add('deleting');
+  setTimeout(() => {
     row.remove();
+    saveToStorage();
+    sortTable();
+  }, 300);
   };
 
   // Урон
