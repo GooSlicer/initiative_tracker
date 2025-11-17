@@ -17,25 +17,38 @@ export function addRowWithData(initiative = "", name = "", hp = "") {
   initInput.max = "99";
   initInput.value = initiative;
   initInput.addEventListener('input', function () {
-    let value = this.value;
+  let value = this.value;
 
-    if (value === '!20' || value === '!1') {
-    } else if (value === '') {
-    } else {
-      value = value.replace(/[^0-9\-]/g, '');
-      const num = parseInt(value);
-      if (!isNaN(num)) {
-        if (num < -30) value = '-30';
-        if (num > 99) value = '99';
-      } else {
-        value = '';
-      }
+  const luckMatch = value.match(/^!(\d+)$/);
+  const failMatch = value.match(/^(\d+)!$/);
+
+  if (luckMatch) {
+    const num = parseInt(luckMatch[1]);
+    if (num < 1 || num > 99) {
+      value = '!' + num.toString().slice(0, -1);
     }
+  } else if (failMatch) {
+    const num = parseInt(failMatch[1]);
+    if (num < 1 || num > 99) {
+      value = num.toString().slice(0, -1) + '!';
+    }
+  } else if (value === '') {
+    
+  } else {
+    value = value.replace(/[^0-9\-]/g, '');
+    const num = parseInt(value);
+    if (!isNaN(num)) {
+      if (num < -30) value = '-30';
+      if (num > 99) value = '99';
+    } else {
+      value = '';
+    }
+  }
 
-    this.value = value;
-    updateRowStyle(row, hpInput, nameInput);
-    sortTable();
-  });
+  this.value = value;
+  updateRowStyle(row, hpInput, nameInput);
+  sortTable();
+});
 
   // Имя
   const nameCell = document.createElement("td");

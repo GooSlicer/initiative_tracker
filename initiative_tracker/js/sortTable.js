@@ -10,8 +10,14 @@ export function sortTable() {
     const bInitRaw = b.querySelector('.initiative-input').value.trim();
 
     const parseInit = (raw) => {
-      if (raw === '!20') return 20;
-      if (raw === '!1') return 1;
+      if (/^!\d+$/.test(raw)) {
+        const num = parseInt(raw.slice(1));
+        return isNaN(num) ? -1 : num;
+      }
+      if (/^\d+!$/.test(raw)) {
+        const num = parseInt(raw.slice(0, -1));
+        return isNaN(num) ? -1 : num;
+      }
       const num = parseInt(raw);
       return isNaN(num) ? -1 : num;
     };

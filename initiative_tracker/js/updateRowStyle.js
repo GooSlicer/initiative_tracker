@@ -3,6 +3,7 @@ import { cleanName, HERO_MAX_HP } from "./heroData.js";
 export function updateRowStyle(row, hpInput, nameInput) {
   const hpStr = hpInput.value.trim();
   const rawName = nameInput.value.trim();
+  
   row.classList.remove('dead', 'deceased', 'initiative-20', 'initiative-crit-fail');
 
   const initInput = row.querySelector('.initiative-input');
@@ -10,10 +11,10 @@ export function updateRowStyle(row, hpInput, nameInput) {
 
   row.classList.remove('initiative-20', 'initiative-crit-fail');
 
-  if (initValueRaw === '!20') {
+  if (/^!\d+$/.test(initValueRaw)) {
     row.classList.add('initiative-20');
   }
-  else if (initValueRaw === '!1') {
+  else if (/^\d+!$/.test(initValueRaw)) {
     row.classList.add('initiative-crit-fail');
   }
 
